@@ -1,6 +1,10 @@
 import keras
 from keras.layers import Convolution2D, Dense, Flatten
 from keras.models import Sequential
+import scipy.misc
+
+def PreprocessImage(img):
+    return scipy.misc.imresize(img, (66, 200), 'bilinear')
 
 class NormalizeImage(keras.engine.topology.Layer):
     '''Custom Keras layer that performs image normalization '''
@@ -15,6 +19,7 @@ class NormalizeImage(keras.engine.topology.Layer):
     def get_output_shape_for(self, input_shape):
         return input_shape
 
+#TODO: Add dropout
 def Dave2():
     '''
     A keras implementation of Nvidia's Dave2 architecture.
@@ -34,3 +39,6 @@ def Dave2():
     model.add(Dense(10, activation='relu'))
     model.add(Dense(1))
     return model
+
+# Define custom keras layers for loading from JSON
+keras_objects = {'NormalizeImage': NormalizeImage}
