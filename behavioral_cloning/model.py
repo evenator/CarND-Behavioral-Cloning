@@ -1,8 +1,9 @@
 import keras
-from keras.layers import Convolution2D, Dense, Flatten
+from keras.layers import Convolution2D, Dense, Flatten, Dropout
 from keras.models import Sequential
 import scipy.misc
 
+#TODO: Add cropping
 def PreprocessImage(img):
     return scipy.misc.imresize(img, (66, 200), 'bilinear')
 
@@ -19,8 +20,8 @@ class NormalizeImage(keras.engine.topology.Layer):
     def get_output_shape_for(self, input_shape):
         return input_shape
 
-#TODO: Add dropout
-def Dave2():
+#TODO: Try ELU
+def Dave2(dropout=0.0):
     '''
     A keras implementation of Nvidia's Dave2 architecture.
     See "End to End Learning for Self-Driving Cars" by Boiarski et al
@@ -34,8 +35,11 @@ def Dave2():
     model.add(Convolution2D(64, 3, 3, border_mode='valid', activation='relu'))
     model.add(Convolution2D(64, 3, 3, border_mode='valid', activation='relu'))
     model.add(Flatten())
+    model.add(Dropout(dropout))
     model.add(Dense(100, activation='relu'))
+    model.add(Dropout(dropout))
     model.add(Dense(50, activation='relu'))
+    model.add(Dropout(dropout))
     model.add(Dense(10, activation='relu'))
     model.add(Dense(1))
     return model
