@@ -113,3 +113,27 @@ class MultiCameraGenerator(DataGenerator):
         random.shuffle(self.data)
         self.index = 0
 
+class JitteredGenerator(DataGenerator):
+    def next(self):
+        batch_end = min(self.index + self.batch_size, len(self.data))
+        inputs = list()
+        targets = list()
+        for sample in self.data[self.index:batch_end]:
+            try:
+               image = scipy.ndimage.imread(sample[0], mode='RGB')
+            except IOError:
+                print("Couldn't open {}".format(sample[0]))
+                continue
+            jitter_x = random.randint(-60, 60)
+            jitter_y = random.randint(-10, 10)
+            inputs.append(PreprocessImage(image, jitter_x, jitter_y))
+            targets.append(sample[1] + .008 * jitter_x)
+        self.index = batch_end
+        if self.index >= len(self.data):
+            self.index = 0
+        return((np.stack(inputs), targets))
+    def __len__(self):
+        return 10 * super().__len__()
+
+class JitteredMultiCameraGenerator(MultiCameraGenerator, JitteredGenerator):
+    pass

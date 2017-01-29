@@ -2,7 +2,7 @@
 
 import argparse
 from behavioral_cloning.model import Dave2, PreprocessImage
-from behavioral_cloning.generators import DataGenerator, MultiCameraGenerator, StochasticGeneratorPool
+from behavioral_cloning.generators import DataGenerator, MultiCameraGenerator, StochasticGeneratorPool, JitteredMultiCameraGenerator
 import csv
 import functools
 import itertools
@@ -33,7 +33,7 @@ def main():
     print(vars(args))
             
     # Create generator for training_data
-    training_generator = StochasticGeneratorPool([MultiCameraGenerator(d, args.batch_size) for d in args.data_dir])
+    training_generator = StochasticGeneratorPool([JitteredMultiCameraGenerator(d, args.batch_size) for d in args.data_dir])
     # Create generator for validation data
     validation_generator = DataGenerator(args.validation_dir, args.batch_size)
     # Create model
