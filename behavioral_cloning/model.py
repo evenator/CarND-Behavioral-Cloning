@@ -21,7 +21,7 @@ class NormalizeImage(keras.engine.topology.Layer):
         return input_shape
 
 #TODO: Try ELU
-def Dave2(dropout=0.0):
+def Dave2(dropout=0.0, activation='elu'):
     '''
     A keras implementation of Nvidia's Dave2 architecture.
     See "End to End Learning for Self-Driving Cars" by Boiarski et al
@@ -29,18 +29,18 @@ def Dave2(dropout=0.0):
     '''
     model = Sequential()
     model.add(NormalizeImage(input_shape=(66, 200, 3)))
-    model.add(Convolution2D(24, 5, 5, border_mode='valid', subsample=(2,2), activation='relu'))
-    model.add(Convolution2D(36, 5, 5, border_mode='valid', subsample=(2,2), activation='relu'))
-    model.add(Convolution2D(48, 5, 5, border_mode='valid', subsample=(2,2), activation='relu'))
-    model.add(Convolution2D(64, 3, 3, border_mode='valid', activation='relu'))
-    model.add(Convolution2D(64, 3, 3, border_mode='valid', activation='relu'))
+    model.add(Convolution2D(24, 5, 5, border_mode='valid', subsample=(2,2), activation=activation))
+    model.add(Convolution2D(36, 5, 5, border_mode='valid', subsample=(2,2), activation=activation))
+    model.add(Convolution2D(48, 5, 5, border_mode='valid', subsample=(2,2), activation=activation))
+    model.add(Convolution2D(64, 3, 3, border_mode='valid', activation=activation))
+    model.add(Convolution2D(64, 3, 3, border_mode='valid', activation=activation))
     model.add(Flatten())
     model.add(Dropout(dropout))
-    model.add(Dense(100, activation='relu'))
+    model.add(Dense(100, activation=activation))
     model.add(Dropout(dropout))
-    model.add(Dense(50, activation='relu'))
+    model.add(Dense(50, activation=activation))
     model.add(Dropout(dropout))
-    model.add(Dense(10, activation='relu'))
+    model.add(Dense(10, activation=activation))
     model.add(Dense(1))
     return model
 
