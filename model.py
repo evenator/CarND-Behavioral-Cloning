@@ -45,8 +45,8 @@ def main():
     save_model(model)
     #Print history results
     print(history.history)
-    plt.plot(range(args.epochs), history['loss'], 'g')
-    plt.plot(range(args.epochs), history['val_loss'], 'b')
+    plt.plot(range(args.epochs), history.history['loss'], 'g')
+    plt.plot(range(args.epochs), history.history['val_loss'], 'b')
 
 if __name__ == "__main__":
     main()
