@@ -125,9 +125,8 @@ class JitteredGenerator(DataGenerator):
                 print("Couldn't open {}".format(sample[0]))
                 continue
             jitter_x = random.randint(-60, 60)
-            jitter_y = random.randint(-10, 10)
-            inputs.append(PreprocessImage(image, jitter_x, jitter_y))
-            targets.append(sample[1] + .008 * jitter_x)
+            inputs.append(PreprocessImage(image, jitter_x, 0))
+            targets.append(sample[1] - .008 * jitter_x)
         self.index = batch_end
         if self.index >= len(self.data):
             self.index = 0
