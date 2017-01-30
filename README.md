@@ -190,3 +190,15 @@ work was performed on this system:
 | GPU       | Nvidia GeForce GTX 1060 (cUDA processor) |
 | RAM       | 8GB DDR3                                 |
 | Drive     | Samsung SSD 850 EVO 250GB                |
+
+Future Work
+-----------
+
+This model is somewhat intentionally overfit. It was designed to drive on track
+one, and it can succeed at that task, but the model does not generalize at all.
+It cannot go very far on track two before crashing into the rock wall. In order
+to make a model like this perform in more environments, I would have to
+train it on more data. I could probably reduce the raw data requirements by
+adding simulated lighting (shadows and color) to the data augmentation. However,
+that is beyond the scope of this project.
+
