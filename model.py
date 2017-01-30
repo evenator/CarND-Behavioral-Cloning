@@ -28,11 +28,11 @@ def main():
     parser.add_argument('--data-dir', '-d', type=str, help='Data directories to use', nargs='+')
     parser.add_argument('--validation-dir', '-v', type=str, help='Data directory to use for validation', required=True)
     parser.add_argument('--metrics', type=str, help='Metrics for keras to compute while optimizing', nargs='*')
+    parser.add_argument('--side-cam-angle', type=float, help='Angle to add to the side cameras for data augmentation', default=0.25)
     args = parser.parse_args()
-    print(vars(args))
             
     # Create generator for training_data
-    training_generator = StochasticGeneratorPool([JitteredMultiCameraGenerator(d, args.batch_size) for d in args.data_dir])
+    training_generator = StochasticGeneratorPool([JitteredMultiCameraGenerator(d, args.batch_size, offset=args.side_cam_angle) for d in args.data_dir])
     # Create generator for validation data
     validation_generator = DataGenerator(args.validation_dir, args.batch_size)
     # Create model
@@ -46,6 +46,7 @@ def main():
     print(history.history)
     plt.plot(range(args.epochs), history.history['loss'], 'g')
     plt.plot(range(args.epochs), history.history['val_loss'], 'b')
+    plt.show()
 
 if __name__ == "__main__":
     main()
