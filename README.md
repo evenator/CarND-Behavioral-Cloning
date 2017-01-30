@@ -61,9 +61,15 @@ The output neuron has no activation function (its output is linear), allowing
 it to output any scalar value (rather than saturating its value to 0 or 1, as
 in a classification task). This scalar value is the steering angle.
 
-![Nvidia Dave2 Architecture](https://devblogs.nvidia.com/parallelforall/wp-content/uploads/2016/08/cnn-architecture-624x890.png)
+I experimented with both Rectified Linear Unit (ReLU) and Exponential Linear
+Unit (ELU) for the nonlinearity in the network. I didn't find a strong
+difference between the two, and ultimately chose to use ELU because it does not
+completely discard negative activation like ReLU does, which seems significant
+in non-classification tasks like this.
 
-This diagram from NVidia illustrates the layout of the Dave2 architecture.
+This diagram from NVidia illustrates the layout of the Dave2 architecture:
+
+![Nvidia Dave2 Architecture](https://devblogs.nvidia.com/parallelforall/wp-content/uploads/2016/08/cnn-architecture-624x890.png)
 
 Data Preprocessing
 ------------------
@@ -107,7 +113,7 @@ layers in the pipeline because the effects of dropout should propagate backwards
 through the model. (This advice was given to me by a coworker who works with
 DCNNs regularly.)
 
-'''
+```
 usage: model.py [-h] --batch-size BATCH_SIZE --epochs EPOCHS --optimizer
                 OPTIMIZER [--dropout DROPOUT] --loss LOSS
                 [--data-dir DATA_DIR [DATA_DIR ...]] [--verbose]
@@ -129,13 +135,13 @@ optional arguments:
                         Data directories to use
   --validation-dir VALIDATION_DIR, -v VALIDATION_DIR
                         Data directory to use for validation
-'''
+```
 
 This model was trained with this command:
 
-'''
+```
 python model.py -b 128 -e 10 -o adam -l mse -x 0.25 -v my_data -d my_data_2
-'''
+```
 
 Running the Controller
 ----------------------
@@ -148,9 +154,9 @@ output was very jittery. The smoothing filter helps keep the car from swerving
 back and forth. To run the controller, simply provide it with the path to the
 model.json file:
 
-'''
+```
 python drive.py model.json
-'''
+```
 
 System Requirements
 -------------------
