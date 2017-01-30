@@ -25,10 +25,8 @@ def main():
     parser.add_argument('--optimizer', '-o', type=str, help='One of the Keras optimizers', required=True)
     parser.add_argument('--dropout', '-x', type=float, help='Dropout rate [0,1.0]', default=0.0)
     parser.add_argument('--loss', '-l', type=str, help='One of the Keras loss functions', required=True)
-    parser.add_argument('--data-dir', '-d', type=str, help='Data directory to use', nargs='+')
-    parser.add_argument('--verbose', action='count', help='verbosity level (up to 2)')
+    parser.add_argument('--data-dir', '-d', type=str, help='Data directories to use', nargs='+')
     parser.add_argument('--validation-dir', '-v', type=str, help='Data directory to use for validation', required=True)
-    parser.add_argument('--metrics', '-m', type=str, nargs='*', help='Metrics for Keras to evaluate')
     args = parser.parse_args()
     print(vars(args))
             

@@ -6,8 +6,6 @@ import scipy.misc
 def PreprocessImage(img, x_offset=0, y_offset=0):
     # Crop
     result = img[60+y_offset:126+y_offset, 60+x_offset:260+x_offset]
-    # Resize
-    #result = scipy.misc.imresize(img, (66, 200), 'bilinear')
     assert result.shape == (66, 200, 3), "Shape of Preprocesed image is (%d, %d, %d) for x_offset=%d, y_offset=%d" % (result.shape[0], result.shape[1], result.shape[2], x_offset, y_offset)
     return result
 
