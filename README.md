@@ -21,7 +21,7 @@ the edge of the road, and drove back to the center.
 
 To get more data for training, I augmented the simulator data in two ways.
 First, I used all three images from the car. I offset the steering angle for
-the left and right cameras by 0.25. Second, I generated images with a random
+the left and right cameras by 0.10. Second, I generated images with a random
 horizontal translation or "jitter" and offset the steering angle by 0.008 per
 pixel of shift.
 
@@ -135,12 +135,17 @@ optional arguments:
                         Data directories to use
   --validation-dir VALIDATION_DIR, -v VALIDATION_DIR
                         Data directory to use for validation
+  --metrics [METRICS [METRICS ...]]
+                        Metrics for keras to compute while optimizing
+  --side-cam-angle SIDE_CAM_ANGLE
+                        Angle to add to the side cameras for data augmentation
+
 ```
 
 This model was trained with this command:
 
 ```
-python model.py -b 128 -e 10 -o adam -l mse -x 0.25 -v my_data -d my_data_2
+python model.py -b 128 -e 10 -o adam -l mse -x 0.25 -v my_data -d my_data_2  --side-cam-angle 0.10
 ```
 
 Running the Controller
