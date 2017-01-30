@@ -27,6 +27,7 @@ def main():
     parser.add_argument('--loss', '-l', type=str, help='One of the Keras loss functions', required=True)
     parser.add_argument('--data-dir', '-d', type=str, help='Data directories to use', nargs='+')
     parser.add_argument('--validation-dir', '-v', type=str, help='Data directory to use for validation', required=True)
+    parser.add_argument('--metrics', type=str, help='Metrics for keras to compute while optimizing', nargs='*')
     args = parser.parse_args()
     print(vars(args))
             
