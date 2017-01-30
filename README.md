@@ -202,3 +202,11 @@ train it on more data. I could probably reduce the raw data requirements by
 adding simulated lighting (shadows and color) to the data augmentation. However,
 that is beyond the scope of this project.
 
+Credits
+-------
+
+Tip of the Hat to
+
+- [Vivek Yadav](https://medium.com/@vivek.yadav) and [Nick Hortovanyi](https://about.me/hortovanyi)
+  for their ideas on data augmentation, which inspired my own approach.
+- [The NVidia End to End Deep Learning Team](https://devblogs.nvidia.com/parallelforall/deep-learning-self-driving-cars/), who created the Dave2 architecture and created the diagram used above.
