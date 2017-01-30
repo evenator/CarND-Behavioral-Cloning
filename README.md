@@ -158,6 +158,25 @@ model.json file:
 python drive.py model.json
 ```
 
+Files
+-----
+
+In addition to the two core executables, drive.py and model.py, most of the
+supporting python code is in the behavioral_cloning directory, which contains
+two python modules:
+
+- behavioral_cloning/generators.py contains various generators for reading data
+    from the driving log and from images. This includes all of the data
+    augmentation code.
+- behavioral_cloning/model.py contains the definition of the model in keras, as
+    well as the custom layer for normalization and the preprocesing function,
+    which crops the image.
+
+There are also two utility executables, plot_data.py, for plotting training
+data with matplotlib for easy visualization, and plot_model.py, for plotting
+the model predictions of a set of training data, which makes it easy to see
+how well the model fits the data.
+
 System Requirements
 -------------------
 
